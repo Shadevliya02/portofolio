@@ -1,0 +1,177 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg: #fafaf9;
+  --bg-alt: #f2f1ee;
+  --surface: #ffffff;
+  --ink: #1a1d21;
+  --ink-muted: #565d66;
+  --border: #e3e4e1;
+  --accent: #155e75;
+  --accent-strong: #0e4a5c;
+  --accent-soft: #e6f2f5;
+  --accent-contrast: #ffffff;
+  --shadow-accent-raw: 0 10px 24px -8px rgba(21, 94, 117, 0.4);
+  --shadow-card-raw: 0 12px 28px -12px rgba(26, 29, 33, 0.16);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --bg: #15191c;
+    --bg-alt: #1b2024;
+    --surface: #1e2327;
+    --ink: #e7e9ea;
+    --ink-muted: #9ba3ab;
+    --border: #2c3236;
+    --accent: #4fb8d6;
+    --accent-strong: #7dd3e8;
+    --accent-soft: rgba(79, 184, 214, 0.14);
+    --accent-contrast: #08222b;
+    --shadow-accent-raw: 0 10px 28px -8px rgba(79, 184, 214, 0.35);
+    --shadow-card-raw: 0 12px 28px -12px rgba(0, 0, 0, 0.5);
+  }
+}
+
+:root.dark {
+  --bg: #15191c;
+  --bg-alt: #1b2024;
+  --surface: #1e2327;
+  --ink: #e7e9ea;
+  --ink-muted: #9ba3ab;
+  --border: #2c3236;
+  --accent: #4fb8d6;
+  --accent-strong: #7dd3e8;
+  --accent-soft: rgba(79, 184, 214, 0.14);
+  --accent-contrast: #08222b;
+  --shadow-accent-raw: 0 10px 28px -8px rgba(79, 184, 214, 0.35);
+  --shadow-card-raw: 0 12px 28px -12px rgba(0, 0, 0, 0.5);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-alt: var(--bg-alt);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-contrast: var(--accent-contrast);
+  --shadow-accent: var(--shadow-accent-raw);
+  --shadow-card: var(--shadow-card-raw);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body {
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
+  }
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: 100;
+  transition: top 0.15s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* Scroll-reveal: content is fully visible by default (no JS / reduced motion) */
+.reveal,
+.reveal-scale {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.6s ease,
+      transform 0.6s ease;
+    will-change: opacity, transform;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .reveal-scale {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+    transition:
+      opacity 0.5s ease,
+      transform 0.5s ease;
+    will-change: opacity, transform;
+  }
+
+  .reveal-scale.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  main {
+    max-width: 100% !important;
+  }
+
+  a {
+    color: #000000 !important;
+    text-decoration: underline;
+  }
+
+  .reveal,
+  .reveal-scale {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  section {
+    break-inside: avoid;
+  }
+}
