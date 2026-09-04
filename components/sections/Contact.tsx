@@ -5,6 +5,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SocialIconLink } from "@/components/ui/SocialIconLink";
 import { LinkedinIcon } from "@/components/icons/BrandIcons";
 import { profile } from "@/content/profile";
+import { buttonClass } from "@/lib/utils";
 
 export function Contact() {
   return (
@@ -22,18 +23,11 @@ export function Contact() {
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <a
-              href={`mailto:${profile.email}`}
-              className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-accent-contrast transition-colors hover:bg-accent-strong"
-            >
+            <a href={`mailto:${profile.email}`} className={buttonClass("primary")}>
               <Mail className="h-4 w-4" aria-hidden="true" />
               {profile.email}
             </a>
-            <a
-              href={profile.cvUrl}
-              download
-              className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-accent hover:text-accent"
-            >
+            <a href={profile.cvUrl} download className={buttonClass("secondary")}>
               <Download className="h-4 w-4" aria-hidden="true" />
               Download CV
             </a>

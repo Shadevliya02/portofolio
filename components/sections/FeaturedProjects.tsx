@@ -20,7 +20,7 @@ export function FeaturedProjects() {
 
         <div className="mt-10 grid gap-6 md:grid-cols-3">
           {projects.map((project, index) => (
-            <Reveal key={project.slug} delay={index * 80}>
+            <Reveal key={project.slug} delay={index * 80} variant="scale">
               <ProjectCard project={project} />
             </Reveal>
           ))}
@@ -31,19 +31,24 @@ export function FeaturedProjects() {
             <p className="text-sm font-semibold uppercase tracking-wide text-ink-muted">
               Other Work
             </p>
-            <div className="mt-4 rounded-2xl border border-border bg-surface p-6 sm:flex sm:items-start sm:justify-between sm:gap-6">
-              <div>
-                <h3 className="text-lg font-semibold text-ink">{otherWork.title}</h3>
-                <p className="mt-1 text-xs text-ink-muted">{otherWork.period}</p>
-                <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-muted">
-                  {otherWork.description}
-                </p>
-              </div>
-              <div className="mt-4 flex flex-wrap gap-2 sm:mt-0 sm:shrink-0">
-                {otherWork.tech.map((tech) => (
-                  <Badge key={tech}>{tech}</Badge>
-                ))}
-              </div>
+            <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              {otherWork.map((work) => (
+                <div
+                  key={work.title}
+                  className="flex h-full flex-col rounded-2xl border border-border bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-card"
+                >
+                  <h3 className="text-lg font-semibold text-ink">{work.title}</h3>
+                  <p className="mt-1 text-xs text-ink-muted">{work.period}</p>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-muted">
+                    {work.description}
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {work.tech.map((tech) => (
+                      <Badge key={tech}>{tech}</Badge>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </Reveal>

@@ -1,6 +1,7 @@
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
+import { PhotoStrip } from "@/components/ui/PhotoStrip";
 import { experience } from "@/content/experience";
 
 export function Experience() {
@@ -38,6 +39,7 @@ export function Experience() {
                     </li>
                   ))}
                 </ul>
+                <PhotoStrip photos={item.photos ?? []} />
               </Reveal>
             </li>
           ))}

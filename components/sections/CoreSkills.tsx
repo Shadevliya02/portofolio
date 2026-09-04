@@ -18,8 +18,8 @@ export function CoreSkills() {
 
         <div className="mt-10 grid gap-5 sm:grid-cols-2">
           {skills.groups.map((group, index) => (
-            <Reveal key={group.id} delay={index * 60}>
-              <div className="h-full rounded-2xl border border-border bg-surface p-6">
+            <Reveal key={group.id} delay={index * 60} variant="scale">
+              <div className="h-full rounded-2xl border border-border bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-card">
                 <h3 className="text-lg font-semibold text-ink">{group.title}</h3>
                 <ul className="mt-4 space-y-2.5">
                   {group.items.map((item) => (

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Check, Mail } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { buttonClass, cn } from "@/lib/utils";
 
 export function CopyEmailButton({
   email,
@@ -28,10 +28,7 @@ export function CopyEmailButton({
       <button
         type="button"
         onClick={handleCopy}
-        className={cn(
-          "inline-flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-accent hover:text-accent",
-          className,
-        )}
+        className={cn(buttonClass("secondary"), className)}
       >
         {copied ? (
           <Check className="h-4 w-4 text-accent" aria-hidden="true" />

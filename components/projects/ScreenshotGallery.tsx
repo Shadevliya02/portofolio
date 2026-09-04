@@ -1,35 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, ImageOff, X } from "lucide-react";
+import { ImageOff } from "lucide-react";
+import { Lightbox } from "@/components/ui/Lightbox";
 import type { Screenshot } from "@/content/types";
 
 export function ScreenshotGallery({ screenshots }: { screenshots: Screenshot[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-  useEffect(() => {
-    if (openIndex === null) return;
-
-    function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") setOpenIndex(null);
-      if (event.key === "ArrowRight") {
-        setOpenIndex((i) => (i === null ? i : (i + 1) % screenshots.length));
-      }
-      if (event.key === "ArrowLeft") {
-        setOpenIndex((i) => (i === null ? i : (i - 1 + screenshots.length) % screenshots.length));
-      }
-    }
-
-    document.addEventListener("keydown", onKeyDown);
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = previousOverflow;
-    };
-  }, [openIndex, screenshots.length]);
 
   if (screenshots.length === 0) {
     return (
@@ -40,8 +18,6 @@ export function ScreenshotGallery({ screenshots }: { screenshots: Screenshot[] }
     );
   }
 
-  const active = openIndex !== null ? screenshots[openIndex] : null;
-
   return (
     <>
       <div className="grid gap-4 sm:grid-cols-2">
@@ -50,13 +26,14 @@ export function ScreenshotGallery({ screenshots }: { screenshots: Screenshot[] }
             key={shot.src}
             type="button"
             onClick={() => setOpenIndex(index)}
-            className="group overflow-hidden rounded-xl border border-border text-left"
+            className="group overflow-hidden rounded-xl border border-border text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-card"
           >
             <Image
               src={shot.src}
               alt={shot.alt}
               width={800}
               height={500}
+              loading="eager"
               sizes="(min-width: 640px) 50vw, 100vw"
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
             />
@@ -69,68 +46,14 @@ export function ScreenshotGallery({ screenshots }: { screenshots: Screenshot[] }
         ))}
       </div>
 
-      {active ? (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label={active.alt}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4"
-          onClick={() => setOpenIndex(null)}
-        >
-          <button
-            type="button"
-            onClick={() => setOpenIndex(null)}
-            aria-label="Close"
-            className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20"
-          >
-            <X className="h-5 w-5" aria-hidden="true" />
-          </button>
-
-          {screenshots.length > 1 ? (
-            <>
-              <button
-                type="button"
-                onClick={(event) => {
-                  event.stopPropagation();
-                  setOpenIndex((i) => (i === null ? i : (i - 1 + screenshots.length) % screenshots.length));
-                }}
-                aria-label="Previous screenshot"
-                className="absolute left-4 top-1/2 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20"
-              >
-                <ChevronLeft className="h-5 w-5" aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                onClick={(event) => {
-                  event.stopPropagation();
-                  setOpenIndex((i) => (i === null ? i : (i + 1) % screenshots.length));
-                }}
-                aria-label="Next screenshot"
-                className="absolute right-4 top-1/2 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20"
-              >
-                <ChevronRight className="h-5 w-5" aria-hidden="true" />
-              </button>
-            </>
-          ) : null}
-
-          <div
-            className="max-h-[85vh] max-w-4xl"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <Image
-              src={active.src}
-              alt={active.alt}
-              width={1600}
-              height={1000}
-              sizes="(min-width: 1024px) 896px, 90vw"
-              className="max-h-[85vh] w-auto rounded-lg object-contain"
-            />
-            {active.caption ? (
-              <p className="mt-3 text-center text-sm text-white/80">{active.caption}</p>
-            ) : null}
-          </div>
-        </div>
-      ) : null}
+      <Lightbox
+        photos={screenshots}
+        index={openIndex}
+        onClose={() => setOpenIndex(null)}
+        onNavigate={(delta) =>
+          setOpenIndex((i) => (i === null ? i : (i + delta + screenshots.length) % screenshots.length))
+        }
+      />
     </>
   );
 }

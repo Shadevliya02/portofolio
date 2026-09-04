@@ -6,12 +6,25 @@ import { SocialIconLink } from "@/components/ui/SocialIconLink";
 import { GithubIcon, LinkedinIcon } from "@/components/icons/BrandIcons";
 import { Reveal } from "@/components/ui/Reveal";
 import { profile } from "@/content/profile";
+import { buttonClass } from "@/lib/utils";
 
 export function Hero() {
   const hasPhoto = Boolean(profile.photoUrl);
 
   return (
-    <section id="top" aria-label="Introduction" className="border-b border-border bg-bg">
+    <section
+      id="top"
+      aria-label="Introduction"
+      className="relative overflow-hidden border-b border-border bg-bg"
+    >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-32 -right-20 h-96 w-96 rounded-full bg-accent-soft opacity-70 blur-3xl dark:opacity-30"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-40 -left-24 h-80 w-80 rounded-full bg-accent-soft opacity-40 blur-3xl dark:opacity-20"
+      />
       <Container
         className={
           hasPhoto
@@ -35,11 +48,7 @@ export function Hero() {
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <a
-              href={profile.cvUrl}
-              download
-              className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-accent-contrast transition-colors hover:bg-accent-strong"
-            >
+            <a href={profile.cvUrl} download className={buttonClass("primary")}>
               <Download className="h-4 w-4" aria-hidden="true" />
               Download CV (PDF)
             </a>

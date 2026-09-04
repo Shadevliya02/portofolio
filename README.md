@@ -33,9 +33,9 @@ All text/data lives in **`content/*.ts`** as typed objects — you can edit thes
 |---|---|
 | `content/profile.ts` | Name, role line, contact info, links, education, About paragraphs |
 | `content/skills.ts` | The 4 Core Skills groups + the small "Additional" skills line |
-| `content/projects.ts` | The 3 featured case studies + the 1 "Other Work" card |
-| `content/experience.ts` | Experience timeline |
-| `content/certifications.ts` | Certifications & Awards list (set `highlight: true` to accent one) |
+| `content/projects.ts` | The 3 featured case studies + the "Other Work" cards |
+| `content/experience.ts` | Experience timeline (each entry supports up to 5 `photos`) |
+| `content/certifications.ts` | Certifications & Awards list (`highlight: true` to accent one, `proofUrl` for a certificate link) |
 | `content/types.ts` | The TypeScript shape all of the above must match |
 
 Anything still needing real information is marked `TODO: ...` inline — see **[`TODO.md`](./TODO.md)** for the full checklist (CV file, screenshots, LinkedIn/GitHub URLs, per-project numbers and insights). Find every remaining item with:
@@ -44,18 +44,22 @@ Anything still needing real information is marked `TODO: ...` inline — see **[
 grep -rn "TODO" content/
 ```
 
-## Replacing project screenshots
+## Replacing project screenshots & experience photos
 
-1. Drop image files into `public/projects/<slug>/` (`powerbi-dashboard`, `excel-data-cleaning`, or `python-eda`).
-2. In `content/projects.ts`, add an entry to that project's `screenshots` array:
+Every project currently ships with 2 illustrative placeholder screenshots (`public/placeholders/screenshot-*.png`, generated graphics clearly captioned "Placeholder — replace with a real screenshot"), and every experience entry ships with 5 placeholder photos (`public/placeholders/experience-photo-*.png`). None of these are real data — see `TODO.md`.
+
+To replace them:
+
+1. Drop your real image files into `public/projects/<slug>/` (project screenshots) or a folder of your choice (experience photos).
+2. Update the corresponding `screenshots` array in `content/projects.ts`, or `photos` array in `content/experience.ts`:
    ```ts
    screenshots: [
      { src: "/projects/powerbi-dashboard/01-overview.png", alt: "Overview page of the Power BI dashboard showing..." },
    ],
    ```
-3. Write a descriptive `alt` for each image (accessibility + SEO). `caption` is optional.
+3. Write a descriptive `alt` for each image (accessibility + SEO). `caption` is optional and only used by project screenshots.
 
-Empty `screenshots` arrays render a "Screenshots coming soon" placeholder instead of a broken image — the site is safe to deploy before these are ready.
+An empty `screenshots` array renders a "Screenshots coming soon" placeholder instead of a broken image, and an empty/omitted `photos` array simply renders nothing — the site is safe to deploy at any point in between.
 
 ## Replacing the CV
 
@@ -66,6 +70,8 @@ Put the PDF at `public/cv/Sharla-Devrina-Aurelliya-CV.pdf` (exact filename). Bot
 - Colors, spacing tokens, dark-mode variables, and the scroll-reveal/print CSS all live in `app/globals.css` (Tailwind v4's CSS-first `@theme` config — there's no separate `tailwind.config.ts`).
 - Dark mode is a manual toggle (`components/ui/ThemeToggle.tsx`) persisted to `localStorage`, defaulting to the OS preference on first visit. `components/ui/ThemeScript.tsx` applies the right class before paint to avoid a flash.
 - Content max-width is capped around `1100px` via `components/ui/Container.tsx`.
+- Shared pill-button styling lives in `buttonClass()` (`lib/utils.ts`); the lightbox used by both project screenshots and experience photos lives in `components/ui/Lightbox.tsx`.
+- Images inside galleries/photo strips use `loading="eager"` deliberately — there are only a handful, and it avoids a class of bugs where native lazy-loading never triggers for a tool or crawler that renders the page without a real scroll.
 
 ## Deploying
 

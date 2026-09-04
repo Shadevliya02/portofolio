@@ -15,6 +15,13 @@ export function SectionHeading({
 }) {
   return (
     <div className={cn("max-w-2xl", align === "center" && "mx-auto text-center")}>
+      <span
+        className={cn(
+          "mb-3 block h-1 w-10 rounded-full bg-accent",
+          align === "center" && "mx-auto",
+        )}
+        aria-hidden="true"
+      />
       {eyebrow ? (
         <p className="text-sm font-semibold uppercase tracking-wider text-accent">
           {eyebrow}

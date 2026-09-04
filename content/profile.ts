@@ -24,7 +24,7 @@ export const profile: Profile = {
   about: [
     "Software Engineering graduate with a BNSP Data Analyst certification, focused on data management and reporting.",
     "Experienced in cleaning and structuring data with Excel and Power Query, building dashboards in Power BI, and running exploratory analysis in Python.",
-    "Currently a Technical Writer Intern at Telkom University's PuTI Directorate, gathering requirements from multiple units and turning business processes into structured documentation.",
+    "Most recently a Technical Writer Intern at Telkom University's PuTI Directorate, gathering requirements from multiple units and turning business processes into structured documentation.",
     "Comfortable working between data, systems, and the people who use them.",
   ],
   contactClosing:

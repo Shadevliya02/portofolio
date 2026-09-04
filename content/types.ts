@@ -95,6 +95,7 @@ export interface ExperienceItem {
   location: string;
   period: string;
   bullets: string[];
+  photos?: Screenshot[];
 }
 
 export interface Certification {
@@ -102,4 +103,6 @@ export interface Certification {
   issuer: string;
   period: string;
   highlight?: boolean;
+  /** Link to the certificate/proof. Use "TODO: ..." until a real one is available. */
+  proofUrl?: string;
 }
