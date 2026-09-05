@@ -8,7 +8,7 @@ export const profile: Profile = {
   openTo: "Open to Bandung, Jakarta, or remote",
   email: "devrinasharla@gmail.com",
   phone: "+62 821-1807-1547",
-  linkedin: "TODO: isi URL LinkedIn",
+  linkedin: "https://www.linkedin.com/in/sharla-devrina-aurelliya-98243614a",
   github: "TODO: isi URL GitHub",
   photoUrl: "",
   cvUrl: "/cv/Sharla-Devrina-Aurelliya-CV.pdf",

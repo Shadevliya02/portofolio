@@ -15,7 +15,7 @@ export function SiteFooter() {
         </div>
 
         <div className="flex items-center gap-3">
-          <SocialIconLink href={profile.linkedin} label="LinkedIn" icon={LinkedinIcon} />
+          <SocialIconLink href={"https://www.linkedin.com/in/sharla-devrina-aurelliya-98243614a"} label="LinkedIn" icon={LinkedinIcon} />
           <SocialIconLink href={profile.github} label="GitHub" icon={GithubIcon} />
         </div>
 

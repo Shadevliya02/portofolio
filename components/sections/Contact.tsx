@@ -34,7 +34,7 @@ export function Contact() {
           </div>
 
           <div className="mt-6 flex items-center justify-center gap-3">
-            <SocialIconLink href={profile.linkedin} label="LinkedIn" icon={LinkedinIcon} />
+            <SocialIconLink href={"https://www.linkedin.com/in/sharla-devrina-aurelliya-98243614a"} label="LinkedIn" icon={LinkedinIcon} />
           </div>
         </Reveal>
       </Container>

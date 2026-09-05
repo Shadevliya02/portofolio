@@ -54,7 +54,7 @@ export function Hero() {
             </a>
             <CopyEmailButton email={profile.email} />
             <div className="flex items-center gap-2">
-              <SocialIconLink href={profile.linkedin} label="LinkedIn" icon={LinkedinIcon} />
+              <SocialIconLink href={"https://www.linkedin.com/in/sharla-devrina-aurelliya-98243614a"} label="LinkedIn" icon={LinkedinIcon} />
               <SocialIconLink href={profile.github} label="GitHub" icon={GithubIcon} />
             </div>
           </div>
