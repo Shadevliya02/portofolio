@@ -6,36 +6,51 @@ export const projects: ProjectDetail[] = [
     title: "Power BI Sales & Performance Dashboard",
     summary:
       "An interactive Power BI dashboard turning raw sales data into a decision-ready view of performance across products, regions, and time.",
-    role: "Data Analyst (independent project)",
-    tools: ["Power BI", "DAX", "Power Query"],
-    period: "TODO: isi periode pengerjaan (mis. Jan–Feb 2025)",
+    role: "Data Analyst — BNSP Data Analyst Certification (Dashboard Challenge)",
+    tools: ["Power BI", "DAX", "Microsoft Excel"],
+    period: "2025",
     focus: "Data modeling, DAX measures, interactive dashboard, business insight",
     problem:
-      "TODO: pertanyaan bisnis utama dashboard ini (contoh: produk/wilayah mana paling berkontribusi ke penjualan, dan bagaimana trennya?).",
+      "As a BNSP Data Analyst certification 'Dashboard Challenge,' the brief was to turn the BluBlu Customer Dataset into an interactive dashboard for a Head of Marketing / Customer Growth Manager, answering three questions: what's happening with sales and the customer base today (descriptive), why certain trends and behaviors occur (diagnostic), and what to do next to drive growth (prescriptive).",
     data: {
-      source: "TODO: sumber data (mis. dataset penjualan internal atau publik + tautan)",
-      rowsColumns: "TODO: jumlah baris & kolom data",
+      source:
+        "BluBlu_Customer_Dataset.csv, enriched with a category.csv lookup file (via VLOOKUP) to group purchases into broader product sections.",
+      rowsColumns:
+        "800 raw rows → 750 unique customer rows after de-duplication, across 30+ columns.",
       initialCondition:
-        "TODO: kondisi data sebelum diproses (tabel terpisah yang perlu direlasikan, kolom tidak konsisten, dll.).",
+        "50 duplicate Customer_ID rows, missing values in Social_Media_Influence and Engagement_with_Ads, inconsistent capitalization/spacing and typos in categorical fields, currency and percentage fields stored as text, and no product-section grouping for category-level analysis.",
     },
     process: [
-      "Imported raw data into Power BI and reviewed table structure and relationships.",
-      "Cleaned and shaped data with Power Query — data types, column names, unused fields.",
-      "Built a star-schema data model, relating fact and dimension tables.",
-      "Wrote DAX measures for the core metrics (TODO: nama measure penting, mis. Total Sales, YoY Growth).",
-      "Designed report pages and visuals around the business question, with filters for interactivity.",
-      "Reviewed the dashboard against the original question and refined visuals for clarity.",
+      "Removed 50 duplicate rows by Customer_ID in Excel, leaving 750 unique customer records for analysis.",
+      "Filled missing values in Social_Media_Influence and Engagement_with_Ads with each column's mode (most frequent value).",
+      "Standardized categorical text with PROPER(TRIM) (Gender, Payment_Method, Purchase_Channel, Marital_Status) and corrected typos in Purchase_Category via Find/Replace.",
+      "Fixed data types — Purchase_Amount to Number, Discount (%) to a decimal, numeric columns to whole/1-decimal numbers, and Time_of_Purchase standardized to YYYY-MM-DD.",
+      "Enriched the dataset with a new Section column (e.g., Consumer Goods, Living Essentials) via VLOOKUP, and added calculated columns Net_Sales (USD) and Discount_Amount (USD).",
+      "Imported the cleaned data into Power BI, verified data types across all 30+ columns, and set Location's data category to City so the map visual would resolve correctly.",
+      "Built a dedicated Key Measures table in DAX, including Total Customers (DISTINCTCOUNT), Avg. Satisfaction (AVERAGE), Total Net Sales (EUR) = SUM(Net_Sales (USD)) * 0.9, and a weighted Avg. Loyalty Score (70% Brand_Loyalty + 30% loyalty-program membership).",
+      "Designed dashboard visuals — KPI cards, monthly sales trend, category ranking, customer map, gender split, satisfaction gauge, and social media influence — around the three business questions.",
     ],
     keyInsights: [
-      "TODO: insight #1 (contoh: kategori X menyumbang Y% penjualan meski volumenya paling rendah).",
-      "TODO: insight #2 (contoh: wilayah/cabang tertentu menurun pada periode tertentu).",
-      "TODO: insight #3 (contoh: pola musiman yang memengaruhi performa penjualan).",
+      "Total Net Sales reached €250.09K across 750 unique customers, with an average satisfaction of 5.4/10 and 49.5% of customers enrolled in the loyalty program.",
+      "Jewelry & Accessories drove the most Net Sales ($46,903), followed by Hotels ($33,786) and Luxury Goods ($26,199); Clothing was the lowest ($5,406).",
+      "Baby Products had the highest average product rating of any category despite not ranking in the top 3 for sales — a 'hidden gem' that's under-promoted relative to its quality.",
+      "469 customers in the Consumer Goods section (Jewelry, Electronics, etc.) made repeat purchases, showing that high-value categories are effective at driving repeat business.",
+      "Customers are spread globally across Europe, the Americas, and Asia rather than concentrated in one market — strong reach, but a challenge for region-specific logistics and marketing.",
+      "Monthly sales are volatile, peaking in March and bottoming out in October.",
     ],
     impact:
-      "Strengthened my ability to model relational data and turn a business question into DAX measures and a dashboard non-technical stakeholders can read alone. TODO: dampak terukur jika ada (mis. waktu laporan lebih singkat, dipakai tim tertentu).",
+      "Turned the dashboard's insights into three concrete recommendations for a Head of Marketing persona: run a Jewelry & Accessories flash-sale campaign to offset the October sales dip, launch a 'Customer Spotlight' campaign for Baby Products to convert its high rating into sales, and target the ~50% of repeat Consumer Goods buyers who aren't loyalty members with a one-time signup incentive. Working through this certification challenge sharpened my ability to go beyond descriptive reporting — cleaning and modeling a 30+ column dataset, writing weighted DAX measures against a specific brief, and turning the results into diagnostic and prescriptive insight a marketing stakeholder can act on.",
     screenshots: [
-      { src: "/placeholders/screenshot-powerbi-1.png", alt: "TODO: replace with a real screenshot of the dashboard overview page" },
-      { src: "/placeholders/screenshot-powerbi-2.png", alt: "TODO: replace with a real screenshot of the trend/KPI detail page" },
+      {
+        src: "/projects/powerbi-dashboard/dashboard-overview.png",
+        alt: "Power BI dashboard overview: KPI cards for Net Sales, customers, satisfaction, and loyalty, monthly sales trend, and Net Sales by category",
+        caption: "Overview: KPI cards, monthly Net Sales trend, and Net Sales by category.",
+      },
+      {
+        src: "/projects/powerbi-dashboard/customer-profile.png",
+        alt: "Power BI customer profile view: global customer distribution map, gender breakdown, average satisfaction gauge, and social media influence chart",
+        caption: "Customer profile: geographic distribution, gender split, satisfaction, and social media influence.",
+      },
     ],
   },
   {
