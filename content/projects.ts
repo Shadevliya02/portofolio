@@ -6,12 +6,12 @@ export const projects: ProjectDetail[] = [
     title: "Power BI Sales & Performance Dashboard",
     summary:
       "An interactive Power BI dashboard turning raw sales data into a decision-ready view of performance across products, regions, and time.",
-    role: "Data Analyst — BNSP Data Analyst Certification (Dashboard Challenge)",
+    role: "Data Analyst",
     tools: ["Power BI", "DAX", "Microsoft Excel"],
     period: "2025",
     focus: "Data modeling, DAX measures, interactive dashboard, business insight",
     problem:
-      "As a BNSP Data Analyst certification 'Dashboard Challenge,' the brief was to turn the BluBlu Customer Dataset into an interactive dashboard for a Head of Marketing / Customer Growth Manager, answering three questions: what's happening with sales and the customer base today (descriptive), why certain trends and behaviors occur (diagnostic), and what to do next to drive growth (prescriptive).",
+      "Transform the BluBlu Customer Dataset into an interactive dashboard for a Head of Marketing / Customer Growth Manager, answering three questions: what's happening with sales and the customer base today (descriptive), why certain trends and behaviors occur (diagnostic), and what to do next to drive growth (prescriptive).",
     data: {
       source:
         "BluBlu_Customer_Dataset.csv, enriched with a category.csv lookup file (via VLOOKUP) to group purchases into broader product sections.",
