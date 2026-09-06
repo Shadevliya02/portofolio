@@ -241,17 +241,17 @@ export function getProjectBySlug(slug: string): ProjectDetail | undefined {
 
 export const otherWork: OtherWorkItem[] = [
   {
-    title: "Kishenack — Snack Sales Web Application",
+    title: "KisheSnack — Bakery & Cake E-Commerce Platform",
     period: "2025",
     description:
-      "Web platform for snack sales with transaction history, sales reports, and product category management.",
-    tech: ["CodeIgniter 3"],
+      "Web platform built for KisheSnack, a real bakery/cake business, to move it from conventional marketing onto a full online storefront: product catalog with categories (Roti, Kue, Bolu), product pages with flavors/stock/wishlist/live chat, cart and checkout with voucher and balance/manual-transfer payment, order tracking, and an admin panel for product and order management. Built with the Agile methodology (plan, design, develop, test, deploy, review) and co-authored as a published research paper — \"The Recipe for Digital Growth: Optimizing KisheSnack's Web Presence for Market Expansion\" (Journal of Information System & Artificial Intelligence) — validated with a 10-respondent user satisfaction survey scoring consistently 4.0–5.0/5 across UI, UX, and functionality.",
+    tech: ["CodeIgniter 3", "Agile Methodology", "UI/UX Testing"],
   },
   {
-    title: "System Documentation — SEEDS (New Student Registration) v3.7",
-    period: "TODO: isi periode pengerjaan (Tugas Akhir)",
+    title: "System Documentation — SEEDS, iGracias, Disertasi & TA Pascasarjana Applications",
+    period: "Jul 2025 – Present (Technical Writer Intern, Direktorat PuTI)",
     description:
-      "Final project (Tugas Akhir) for the Diploma in Software Engineering: end-to-end system documentation for SEEDS, a new student registration application.",
-    tech: ["Technical Documentation", "Final Project"],
+      "End-to-end technical documentation across 4 Telkom University applications — SEEDS (Student Enrollment Education and Data System) v3.7, iGracias, the Disertasi application, and the Pascasarjana Final Assignment (TA) application. Produced User Manuals, UAT / Rangkaian Uji Penerimaan Pengguna (User Acceptance Test) reports, meeting notulensi, appendices, flow/use-case diagrams, and development timelines, tracking progress in Notion. Coordinated requirements and sign-off across internal, external, faculty, and Telkom branch meetings to keep documentation aligned with what each stakeholder group actually needed.",
+    tech: ["User Manual", "UAT", "Notulensi", "Notion", "Diagrams"],
   },
 ];
