@@ -40,54 +40,21 @@ export interface SkillsContent {
   additional: string;
 }
 
-export type ProjectSlug =
-  | "powerbi-dashboard"
-  | "excel-data-cleaning"
-  | "python-eda"
-  | "paylater-sentiment-analysis";
-
 export interface Screenshot {
   src: string;
   alt: string;
   caption?: string;
 }
 
-export interface BeforeAfterExample {
-  columns: string[];
-  before: string[][];
-  after: string[][];
-  note: string;
-}
-
-export interface ProjectDataInfo {
-  source: string;
-  rowsColumns: string;
-  initialCondition: string;
-}
-
-export interface ProjectDetail {
-  slug: ProjectSlug;
+export interface ProjectItem {
+  slug: string;
   title: string;
-  summary: string;
   role: string;
+  period: string;
+  bullets: string[];
   tools: string[];
-  period: string;
   repoUrl?: string;
-  focus: string;
-  problem: string;
-  data: ProjectDataInfo;
-  process: string[];
-  keyInsights: string[];
-  impact: string;
-  screenshots: Screenshot[];
-  beforeAfter?: BeforeAfterExample;
-}
-
-export interface OtherWorkItem {
-  title: string;
-  period: string;
-  description: string;
-  tech: string[];
+  photos?: Screenshot[];
 }
 
 export interface ExperienceItem {

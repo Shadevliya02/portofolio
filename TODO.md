@@ -7,11 +7,10 @@ Semua item di bawah ini ditandai `TODO:` di kode (`content/*.ts`) supaya gampang
 - [ ] **CV PDF** → taruh di `public/cv/Sharla-Devrina-Aurelliya-CV.pdf` (nama file harus persis sama). Tombol "Download CV" di Hero & Contact sudah mengarah ke path ini.
 - [ ] **Foto profil** (opsional) → taruh file di `public/`, lalu isi `photoUrl` di `content/profile.ts`. Kalau dikosongkan, hero tetap tampil rapi tanpa foto.
 - [ ] **Foto pengalaman kerja (5 per entry)** → saat ini setiap item di `content/experience.ts` punya `photos: [...]` berisi 5 gambar dummy (`public/placeholders/experience-photo-1..5.png`). Ganti tiap entri dengan foto asli (path ke `public/experience/<nama-file>.jpg` misalnya) + tulis `alt` yang deskriptif. Boleh kurang dari 5 kalau fotonya belum ada semua — hapus saja entri yang belum ada isinya.
-- [ ] **Screenshot Power BI** (2–4 gambar) → saat ini `powerbi-dashboard` pakai 2 gambar placeholder ilustratif di `public/placeholders/`. Ganti array `screenshots` di `content/projects.ts` dengan screenshot asli di `public/projects/powerbi-dashboard/`.
-- [ ] **Screenshot before/after Excel** → sama, ganti 2 placeholder project `excel-data-cleaning` dengan screenshot asli di `public/projects/excel-data-cleaning/`.
-- [ ] **Screenshot/grafik hasil EDA Python** → sama, ganti 2 placeholder project `python-eda` dengan screenshot asli di `public/projects/python-eda/`.
+- [ ] **Screenshot KisheSnack** (3 gambar) → `content/projects.ts`, slug `kishesnack`, saat ini pakai 3 placeholder ilustratif di `public/projects/kishesnack/`. Ganti dengan screenshot asli (storefront, product page, cart/checkout, dst).
+- [ ] **Foto/screenshot System Documentation** (3 gambar) → `content/projects.ts`, slug `system-documentation`, saat ini pakai 3 placeholder di `public/projects/system-documentation/`. Ganti dengan screenshot asli (User Manual, laporan UAT, diagram alur, dst).
 
-Format entri screenshot/foto: `{ src: "/path/dari/public", alt: "deskripsi gambar" }`.
+Format entri foto: `{ src: "/path/dari/public", alt: "deskripsi gambar" }`. Layar Power BI, Excel, dan Python EDA sudah pakai screenshot asli.
 
 ## 2. Link profil
 
@@ -24,31 +23,13 @@ Selama masih `TODO:`, ikon LinkedIn/GitHub di Hero, Contact, dan Footer otomatis
 
 - [ ] Isi `proofUrl` di keenam sertifikasi dengan link bukti asli (PDF, Google Drive, Credly, dll.). Selama masih `TODO:`, kartu sertifikasi menampilkan teks redup "Proof coming soon" alih-alih link mati.
 
-## 4. Project — Power BI Sales & Performance Dashboard (`content/projects.ts`, slug `powerbi-dashboard`)
+## 4. Project — Python Exploratory Data Analysis (`content/projects.ts`, slug `python-eda`)
 
-- [ ] `period` — periode pengerjaan.
-- [ ] `problem` — pertanyaan bisnis utama yang dijawab dashboard.
-- [ ] `data.source`, `data.rowsColumns`, `data.initialCondition`.
-- [ ] Satu baris di `process` menyebut nama measure DAX penting — cari komentar `TODO: nama measure penting`.
-- [ ] `keyInsights` — isi 3 insight bisnis asli.
-- [ ] `impact` — tambahkan dampak terukur jika ada.
+- [ ] `period` — isi periode pengerjaan (masih `"TODO: isi periode pengerjaan"`).
 
-## 5. Project — Excel Data Cleaning & Standardization (slug `excel-data-cleaning`)
+Setiap project di `content/projects.ts` sekarang punya bentuk yang sama dengan `content/experience.ts`: `role`, `period`, `bullets` (2–3 kalimat singkat), `tools`, dan `photos`. Kalau ada detail lain yang ingin ditonjolkan (angka baru, insight baru), edit langsung `bullets`-nya — tidak perlu struktur tambahan.
 
-- [ ] `period`, `problem`, `data.source`, `data.rowsColumns` (isi jumlah baris **sebelum & sesudah**), `data.initialCondition`.
-- [ ] `keyInsights`, `impact`.
-- [ ] `beforeAfter` — tabel dirty/clean saat ini **contoh ilustratif generik** (bukan data asli, sudah diberi label "Illustrative example only"). Ganti dengan cuplikan data asli begitu tersedia.
-
-## 6. Project — Python Exploratory Data Analysis (slug `python-eda`)
-
-- [ ] `period`, `problem`, `data.source`, `data.rowsColumns`, `data.initialCondition`.
-- [ ] `keyInsights`, `impact`.
-
-## 7. Other Work — SEEDS System Documentation (Tugas Akhir)
-
-- [ ] `content/projects.ts` → `otherWork[1].period`: isi periode pengerjaan Tugas Akhir.
-
-## 8. Deployment
+## 5. Deployment
 
 - [ ] Set environment variable `NEXT_PUBLIC_SITE_URL` ke domain final (Vercel atau custom domain) — dipakai untuk `metadataBase`, Open Graph, dan `sitemap.xml`/`robots.txt`. Default saat ini: `https://sharla-devrina.vercel.app` (lihat `lib/site.ts`).
 

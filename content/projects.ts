@@ -1,46 +1,18 @@
-import type { OtherWorkItem, ProjectDetail } from "./types";
+import type { ProjectItem } from "./types";
 
-export const projects: ProjectDetail[] = [
+export const projects: ProjectItem[] = [
   {
     slug: "powerbi-dashboard",
     title: "Power BI Sales & Performance Dashboard",
-    summary:
-      "An interactive Power BI dashboard turning raw sales data into a decision-ready view of performance across products, regions, and time.",
     role: "Data Analyst",
-    tools: ["Power BI", "DAX", "Microsoft Excel"],
     period: "2025",
-    focus: "Data modeling, DAX measures, interactive dashboard, business insight",
-    problem:
-      "Transform the BluBlu Customer Dataset into an interactive dashboard for a Head of Marketing / Customer Growth Manager, answering three questions: what's happening with sales and the customer base today (descriptive), why certain trends and behaviors occur (diagnostic), and what to do next to drive growth (prescriptive).",
-    data: {
-      source:
-        "BluBlu_Customer_Dataset.csv, enriched with a category.csv lookup file (via VLOOKUP) to group purchases into broader product sections.",
-      rowsColumns:
-        "800 raw rows → 750 unique customer rows after de-duplication, across 30+ columns.",
-      initialCondition:
-        "50 duplicate Customer_ID rows, missing values in Social_Media_Influence and Engagement_with_Ads, inconsistent capitalization/spacing and typos in categorical fields, currency and percentage fields stored as text, and no product-section grouping for category-level analysis.",
-    },
-    process: [
-      "Removed 50 duplicate rows by Customer_ID in Excel, leaving 750 unique customer records for analysis.",
-      "Filled missing values in Social_Media_Influence and Engagement_with_Ads with each column's mode (most frequent value).",
-      "Standardized categorical text with PROPER(TRIM) (Gender, Payment_Method, Purchase_Channel, Marital_Status) and corrected typos in Purchase_Category via Find/Replace.",
-      "Fixed data types — Purchase_Amount to Number, Discount (%) to a decimal, numeric columns to whole/1-decimal numbers, and Time_of_Purchase standardized to YYYY-MM-DD.",
-      "Enriched the dataset with a new Section column (e.g., Consumer Goods, Living Essentials) via VLOOKUP, and added calculated columns Net_Sales (USD) and Discount_Amount (USD).",
-      "Imported the cleaned data into Power BI, verified data types across all 30+ columns, and set Location's data category to City so the map visual would resolve correctly.",
-      "Built a dedicated Key Measures table in DAX, including Total Customers (DISTINCTCOUNT), Avg. Satisfaction (AVERAGE), Total Net Sales (EUR) = SUM(Net_Sales (USD)) * 0.9, and a weighted Avg. Loyalty Score (70% Brand_Loyalty + 30% loyalty-program membership).",
-      "Designed dashboard visuals — KPI cards, monthly sales trend, category ranking, customer map, gender split, satisfaction gauge, and social media influence — around the three business questions.",
+    bullets: [
+      "Cleaned and modeled the BluBlu Customer Dataset (800 → 750 unique rows, 30+ columns) in Excel, then built a Power BI dashboard around a dedicated DAX measures table.",
+      "Total Net Sales reached €250.09K across 750 customers, with Jewelry & Accessories the top category and Baby Products a high-rating \"hidden gem\" that's under-promoted relative to its quality.",
+      "Turned the findings into 3 concrete recommendations for a Head of Marketing persona — a flash-sale campaign, a product spotlight, and a loyalty-signup push.",
     ],
-    keyInsights: [
-      "Total Net Sales reached €250.09K across 750 unique customers, with an average satisfaction of 5.4/10 and 49.5% of customers enrolled in the loyalty program.",
-      "Jewelry & Accessories drove the most Net Sales ($46,903), followed by Hotels ($33,786) and Luxury Goods ($26,199); Clothing was the lowest ($5,406).",
-      "Baby Products had the highest average product rating of any category despite not ranking in the top 3 for sales — a 'hidden gem' that's under-promoted relative to its quality.",
-      "469 customers in the Consumer Goods section (Jewelry, Electronics, etc.) made repeat purchases, showing that high-value categories are effective at driving repeat business.",
-      "Customers are spread globally across Europe, the Americas, and Asia rather than concentrated in one market — strong reach, but a challenge for region-specific logistics and marketing.",
-      "Monthly sales are volatile, peaking in March and bottoming out in October.",
-    ],
-    impact:
-      "Turned the dashboard's insights into three concrete recommendations for a Head of Marketing persona: run a Jewelry & Accessories flash-sale campaign to offset the October sales dip, launch a 'Customer Spotlight' campaign for Baby Products to convert its high rating into sales, and target the ~50% of repeat Consumer Goods buyers who aren't loyalty members with a one-time signup incentive. Working through this certification challenge sharpened my ability to go beyond descriptive reporting — cleaning and modeling a 30+ column dataset, writing weighted DAX measures against a specific brief, and turning the results into diagnostic and prescriptive insight a marketing stakeholder can act on.",
-    screenshots: [
+    tools: ["Power BI", "DAX", "Microsoft Excel"],
+    photos: [
       {
         src: "/projects/powerbi-dashboard/dashboard-overview.png",
         alt: "Power BI dashboard overview: KPI cards for Net Sales, customers, satisfaction, and loyalty, monthly sales trend, and Net Sales by category",
@@ -56,39 +28,15 @@ export const projects: ProjectDetail[] = [
   {
     slug: "excel-data-cleaning",
     title: "Excel Data Cleaning & Standardization",
-    summary:
-      "Cleaning and standardizing a messy retail transaction workbook with Excel Power Query — deduplication, format standardization, and a profit-margin pivot dashboard.",
     role: "Data Analyst (independent project)",
-    tools: ["Microsoft Excel", "Power Query", "PivotTables"],
     period: "December 2025",
-    focus: "Power Query, deduplication, format standardization, before/after",
-    problem:
-      "A 50-row retail transaction export (\"Tugas 1\") arrived as a flat, single-sheet dump with a duplicated transaction ID, blank unit prices, placeholder customer names, and inconsistent branch-name spelling/casing/whitespace — unusable for reliable reporting until it was validated, cleaned, and enriched with product cost data to calculate real profit margins.",
-    data: {
-      source:
-        "A 50-row retail transaction export (ID_Transaksi, Tanggal, Kode_Produk, Cabang, Jumlah_Beli, Harga_Satuan, Nama_Pelanggan) plus a 5-product master lookup table (Data Master Produk) with product name, category, and unit cost.",
-      rowsColumns:
-        "50 raw transaction rows across 7 columns → 49 verified unique transactions after removing 1 duplicate ID; enriched to 13 columns (product name, category, unit cost, revenue, cost, profit) after integration.",
-      initialCondition:
-        "One transaction ID (TRX-035) assigned to two different orders, 4 blank unit prices, several branch names with typos/casing/whitespace issues (\"Banndung\", \"jakarta\", \" Bandung\", \"Jakarta  \", \"  Medan\"), placeholder \"N/A\" customer names, and one date stored as corrupted text instead of a real date.",
-    },
-    process: [
-      "Reviewed the raw 50-row export (1. Data Transaksi) and used Excel conditional formatting rules — duplicate values on the ID column, blank-cell detection across the sheet — on a validation sheet (2. Data Validasi) to visually flag issues before touching any data.",
-      "Built the cleaning pass as a Power Query pipeline: removed the one genuine duplicate transaction ID (TRX-035, recorded twice for two different customers), bringing the dataset to 49 unique rows.",
-      "Standardized branch names with Trim and Capitalize Each Word (fixing stray leading/trailing spaces, inconsistent casing, and a typo — \"Banndung\" → \"Bandung\"), replaced placeholder \"N/A\" customer names with a consistent \"Tidak Diketahui\" label, filled 4 blank unit prices, and corrected one corrupted date entry — all landed on a dedicated 3. Data Cleaning sheet.",
-      "Merged in product details from the 5-row Data Master Produk table via VLOOKUP, adding product name, category, and unit cost (4. Data Integration).",
-      "Engineered Total_Omzet (revenue), Total_Modal (cost), and Total_Profit columns per transaction (5. Future Engineering) to move from raw counts to profit and margin.",
-      "Built a 6. Dashboard Pivot sheet with PivotTables for monthly revenue, profit margin by category, and revenue by customer, plus a monthly sales-trend chart and a top-customers chart.",
-      "Spot-checked the pivot output against the raw data and flagged a clear outlier — a single 1,000-unit order — for follow-up instead of folding it silently into the headline numbers.",
+    bullets: [
+      "Cleaned a 50-row retail transaction export with Power Query — removed 1 duplicate ID, filled 4 blank prices, and standardized branch names, casing, and dates.",
+      "Joined in product cost data via VLOOKUP and built a PivotTable dashboard covering monthly revenue, profit margin by category, and top customers.",
+      "Flagged a 1,000-unit outlier order (~49% of total revenue) for the data owner instead of reporting it at face value — Aksesoris came out as the highest-margin category at 76.2%.",
     ],
-    keyInsights: [
-      "Cleaning surfaced exactly 1 true duplicate ID (TRX-035, entered once for \"Ebit G Ade\" and again for \"Opick\") and 4 blank unit prices — small in count, but each would have silently distorted revenue totals if left unresolved.",
-      "One transaction — 1,000 units of Kaos Kaki (socks) sold in a single order — generated Rp25,000,000 of the workbook's Rp51,300,000 total revenue (~49%). It's almost certainly a data-entry error (every other order in the set is 1–30 units), so I flagged it for the data owner rather than reporting it at face value.",
-      "By category, Aksesoris carried the highest margin at 76.2% (Rp27.07M profit on Rp35.5M revenue), well ahead of Pakaian (43.8%) and Sepatu (35.9%) — accessories' low unit cost relative to selling price makes them disproportionately profitable even before accounting for the outlier order.",
-    ],
-    impact:
-      "Took a 50-row export with 1 duplicate ID, 4 blanks, and half a dozen text-formatting inconsistencies down to 49 verified, standardized transactions, then joined in product cost data to turn a flat log into a profit-and-margin view a business could act on. The exercise sharpened muscle memory for the specific Excel/Power Query moves that make that possible — Trim/Capitalize Each Word, Remove Duplicates, VLOOKUP merges, conditional-formatting QA rules — and reinforced treating an outlier value (the 1,000-unit order) as a question to ask the data owner, not a number to report at face value.",
-    screenshots: [
+    tools: ["Microsoft Excel", "Power Query", "PivotTables"],
+    photos: [
       {
         src: "/projects/excel-data-cleaning/data-validation-flags.png",
         alt: "Excerpt of the raw transaction sheet with duplicate-ID, blank-value, and formatting issues highlighted in red, yellow, and orange",
@@ -100,61 +48,19 @@ export const projects: ProjectDetail[] = [
         caption: "Dashboard Pivot: monthly revenue trend, margin by category, and top customers — with the outlier order called out.",
       },
     ],
-    beforeAfter: {
-      columns: ["ID_Transaksi", "Cabang", "Nama_Pelanggan", "Harga_Satuan"],
-      before: [
-        ["TRX-007", "Medan", "Dewi Sartika", "(blank)"],
-        ["TRX-011", "Medan", "N/A", "150000"],
-        ["TRX-020", "Banndung", "Putri Titian", "120000"],
-        ["TRX-035", "Jakarta", "Ebit G Ade", "500000"],
-        ["TRX-035", "  Medan", "Opick", "250000"],
-      ],
-      after: [
-        ["TRX-007", "Medan", "Dewi Sartika", "150000"],
-        ["TRX-011", "Medan", "Tidak Diketahui", "150000"],
-        ["TRX-020", "Bandung", "Putri Titian", "120000"],
-        ["TRX-035", "Medan", "Opick", "250000"],
-      ],
-      note: "Real excerpt from the Tugas 1 workbook — TRX-035 was entered twice under the same ID for two different customers; the duplicate row was removed, the \"Banndung\" typo was corrected, \"N/A\" was replaced with a consistent placeholder, and a blank unit price was filled (5 rows → 4 rows).",
-    },
   },
   {
     slug: "python-eda",
     title: "Python Exploratory Data Analysis",
-    summary:
-      "Exploratory data analysis of the UCI Red Wine Quality dataset in Python — from descriptive statistics to a tuned Random Forest baseline.",
     role: "Data Analyst (independent project)",
-    tools: ["Python", "pandas", "NumPy", "matplotlib", "seaborn", "scikit-learn", "Jupyter Notebook"],
     period: "TODO: isi periode pengerjaan",
-    focus: "pandas, descriptive statistics, visualization, classification baseline",
-    problem:
-      "Which physicochemical properties of red wine (acidity, sugar, sulphates, alcohol, etc.) actually relate to its quality score, and how well can a standard classifier predict that score from lab measurements alone?",
-    data: {
-      source:
-        "Red Wine Quality dataset (Cortez et al., 2009) via Kaggle — winequality-red.csv.",
-      rowsColumns:
-        "1,599 wine samples across 12 columns: 11 physicochemical features (fixed/volatile acidity, citric acid, residual sugar, chlorides, free/total sulfur dioxide, density, pH, sulphates, alcohol) plus an integer quality score (3–8).",
-      initialCondition:
-        "No missing values or type issues, but the target is heavily imbalanced — quality scores 5 and 6 alone account for 82% of samples (682 and 638 rows), leaving very few examples at the extremes (10 at quality 3, 53 at quality 4, 18 at quality 8).",
-    },
-    process: [
-      "Loaded winequality-red.csv with pandas and checked shape, dtypes, and null counts — confirmed all 1,599 rows are complete with no missing values.",
-      "Computed descriptive statistics (df.describe().T) for all 11 features and the quality target to establish ranges, means, and spread.",
-      "Plotted the quality distribution with seaborn, surfacing the strong class imbalance around scores 5–6 before any modeling.",
-      "Built a full correlation heatmap across all features — alcohol (+0.48) and sulphates (+0.25) correlate most with quality, volatile acidity (-0.39) correlates negatively.",
-      "Plotted per-feature histograms and boxplots across all 11 variables to check distribution shape and flag outliers (notably in chlorides, residual sugar, and sulphates).",
-      "Split the data 80/20 (1,279 train / 320 test) and standardized features with StandardScaler.",
-      "Trained a RandomForestClassifier baseline (100 trees) and evaluated it with accuracy, a full classification report, a confusion matrix, and feature importances.",
-      "Ran GridSearchCV (5-fold CV) over n_estimators, max_depth, and min_samples_split to check whether tuning could close the gap on the minority classes.",
+    bullets: [
+      "Ran a full pandas/seaborn EDA on the UCI Red Wine Quality dataset (1,599 samples, 11 physicochemical features) — descriptive stats, a correlation heatmap, and per-feature distributions.",
+      "Alcohol content came out as the strongest driver of quality (r = 0.48, top Random Forest feature), ahead of sulphates and volatile acidity.",
+      "A baseline Random Forest hit 66% accuracy; GridSearchCV tuning barely moved it (65.9%) — a hands-on lesson that class imbalance, not the model, was the real ceiling.",
     ],
-    keyInsights: [
-      "Quality scores cluster heavily around 5 and 6 (82% of the dataset), with almost no data at the extremes — this imbalance, not the model, is the main ceiling on classification performance.",
-      "Alcohol content is the single strongest driver of wine quality, both by correlation (r = 0.48) and by Random Forest feature importance (~15%, the top-ranked feature), followed by sulphates and (negatively) volatile acidity.",
-      "The baseline Random Forest reached 66% accuracy but 0% precision/recall on quality 3, 4, and 8 — GridSearchCV's best cross-validated setting (max_depth=20, min_samples_split=2, n_estimators=200, CV accuracy 0.691) only reached 65.9% on the held-out test set, confirming that tuning hyperparameters alone can't fix a class-imbalance problem.",
-    ],
-    impact:
-      "Built a repeatable pandas → seaborn → scikit-learn workflow for taking a raw physicochemical dataset to a validated classification baseline: statistics and correlation analysis before any model touches the data, then a GridSearchCV pass treated as a hypothesis to test rather than a guaranteed win. Seeing the tuned model's cross-validation score (0.691) not hold up on the test set (0.659) was a concrete, hands-on lesson that model tuning can't compensate for skewed classes — the real fix lives upstream, in resampling or reframing the target, not in the classifier.",
-    screenshots: [
+    tools: ["Python", "pandas", "NumPy", "matplotlib", "seaborn", "scikit-learn", "Jupyter Notebook"],
+    photos: [
       {
         src: "/projects/python-eda/quality-distribution.png",
         alt: "Bar chart showing the distribution of red wine quality scores, heavily concentrated at 5 and 6",
@@ -180,42 +86,15 @@ export const projects: ProjectDetail[] = [
   {
     slug: "paylater-sentiment-analysis",
     title: "Multi-Platform Sentiment Analysis of PayLater Services",
-    summary:
-      "Published research comparing public sentiment toward Indonesian PayLater (Buy Now Pay Later) services across X, YouTube, and TikTok, using a fine-tuned IndoRoBERTa classifier and BERTopic to surface what's actually driving the negativity.",
     role: "Research Author — 1st author, Faculty of Applied Science, Telkom University",
+    period: "Aug 2025 – Jan 2026 · published at ISIBER 2026",
+    bullets: [
+      "Scraped and cleaned 34,652 posts/comments across X, YouTube, and TikTok (32,631 valid after filtering), building a custom Indonesian slang-normalization pipeline.",
+      "Fine-tuned an IndoRoBERTa classifier to 0.857 average accuracy across platforms, beating SVM/Random Forest baselines by up to +13.1% on YouTube.",
+      "Applied BERTopic to the negative-sentiment cluster and found impulsive-buying regret (25.5%) outranks debt-collection complaints — published at the 2026 International Seminar on Intelligent Business and Edge-Computing Research.",
+    ],
     tools: ["Python", "IndoRoBERTa (Transformers)", "BERTopic", "Sastrawi", "NLTK", "pandas", "scikit-learn"],
-    period:
-      "Aug 2025 – Jan 2026 · published at the 2026 International Seminar on Intelligent Business and Edge-Computing Research (ISIBER)",
-    focus: "NLP, transformer fine-tuning, topic modeling, cross-platform comparison",
-    problem:
-      "Existing sentiment-analysis research on Indonesia's fast-growing PayLater (Buy Now Pay Later) services almost always studies a single platform or a single brand, hiding how public perception actually differs across text-based and video-based social media. This study asks how sentiment toward PayLater differs across X (Twitter), YouTube, and TikTok — and, beyond a simple positive/negative label, what specific themes (impulsive buying regret, debt collection, usury/riba, and more) actually drive the negative sentiment on each platform.",
-    data: {
-      source:
-        "34,652 raw posts/comments scraped across three platforms over a 6-month observation period (Aug 2025 – Jan 2026): X via Boolean keyword search (\"paylater\", \"galbay\", excluding promo/diskon terms), YouTube via a custom Python script against the YouTube Data API, and TikTok via hashtag-based scraping (#KorbanPaylater and related viral videos).",
-      rowsColumns:
-        "34,652 raw interactions → 32,631 valid records after filtering spam and bots (13,312 from X, 10,441 from YouTube, 8,878 from TikTok), each a single text row later labeled Positive, Neutral, or Negative.",
-      initialCondition:
-        "Raw, highly informal Indonesian social-media text — slang and \"alay\" spelling (\"yg\", \"gak\", \"bgt\"), code-mixing, emojis, URLs, hashtags, @mentions, and promotional spam — with no existing sentiment or topic labels.",
-    },
-    process: [
-      "Built three parallel notebooks (twitter.ipynb, youtube.ipynb, tiktok.ipynb) to scrape platform-native data: Boolean X search, the YouTube Data API, and hashtag-based TikTok scraping — 34,652 raw posts/comments in total.",
-      "Deduplicated records and normalized timestamps per platform (dateparser, python-dateutil) so a single time series analysis could span all three sources.",
-      "Cleaned text with a dedicated preprocessing pipeline: stripped URLs/HTML/hashtags/@mentions, case-folded, then normalized slang and \"alay\" spelling against a custom Indonesian dictionary built specifically for PayLater discourse (e.g. \"yg\" → \"yang\", \"gak\" → \"tidak\").",
-      "Removed emojis and stopwords with Sastrawi and NLTK, cutting the dataset down to 32,631 valid, spam-free records for modeling.",
-      "Ran an initial lexicon-based sentiment pass to sanity-check polarity before committing to a transformer model.",
-      "Fine-tuned an IndoRoBERTa Base Sentiment Classifier (12 transformer layers, 768 hidden units, ~124M parameters, pre-trained on IndoNLU SmSA) on manually annotated, platform-specific gold-standard subsets, and benchmarked it per platform against SVM and Random Forest baselines.",
-      "Applied BERTopic (transformer embeddings + class-based TF-IDF) to the negative-sentiment cluster to extract interpretable topics instead of stopping at a polarity label.",
-      "Resampled sentiment scores weekly with linear interpolation to build a six-month comparative time series across platforms, surfacing event-driven shifts such as the November \"11.11\" shopping festival.",
-    ],
-    keyInsights: [
-      "IndoRoBERTa outperformed both baselines on every platform, reaching 0.857 average accuracy overall and its biggest edge on YouTube (0.810 vs. 0.679 for the best baseline, a +13.1% gain) — dynamic masking handled noisy, unstructured video comments far better than SVM or Random Forest.",
-      "Sentiment is not uniform across platforms: YouTube and TikTok both run over 50% negative — reactive venting triggered by viral debt-collection content — while X shows a more balanced mix of complaints and promotions, serving as both a grievance channel and a promo hub.",
-      "BERTopic on the negative cluster shows the discontent isn't only about debt collectors: 25.5% of negative posts trace back to impulsive buying regret (especially motorbike/vehicle purchases) and another 20.9% to psychological distress over usury (riba), ahead of account/payment errors (21.8%), anti-debt community sentiment (16.3%), and socio-economic criticism (15.5%).",
-      "A clear temporal pattern emerged around the November 2025 \"11.11\" shopping festival: interaction volume spiked sharply (especially on TikTok) while sentiment simultaneously dropped — enthusiasm for promotions and anxiety about rising debt limits showing up in the same event.",
-    ],
-    impact:
-      "Co-authored and published as \"Leveraging IndoRoBERTa and BERTopic for Comparative Multi-Platform Sentiment Analysis of PayLater Services in Indonesia\" at the 2026 International Seminar on Intelligent Business and Edge-Computing Research (ISIBER). Beyond the accuracy numbers, the topic-modeling layer reframed the practical takeaway: because a quarter of negative sentiment traces back to users' own impulsive-buying regret rather than external debt-collection tactics, the paper argues that regulators (OJK) and fintech platforms need behavioral financial-literacy interventions alongside technical and regulatory fixes. Running three independent scraping pipelines end-to-end and reconciling their very different noise profiles into one comparable, weekly time series was the core engineering challenge — and the clearest lesson that platform-specific preprocessing matters as much as model choice.",
-    screenshots: [
+    photos: [
       {
         src: "/projects/paylater-sentiment-analysis/model-accuracy-by-platform.png",
         alt: "Grouped bar chart comparing SVM, Random Forest, and IndoRoBERTa accuracy across X, YouTube, and TikTok",
@@ -233,25 +112,62 @@ export const projects: ProjectDetail[] = [
       },
     ],
   },
-];
-
-export function getProjectBySlug(slug: string): ProjectDetail | undefined {
-  return projects.find((project) => project.slug === slug);
-}
-
-export const otherWork: OtherWorkItem[] = [
   {
+    slug: "kishesnack",
     title: "KisheSnack — Bakery & Cake E-Commerce Platform",
+    role: "Full-Stack Developer & Co-Author",
     period: "2025",
-    description:
-      "Web platform built for KisheSnack, a real bakery/cake business, to move it from conventional marketing onto a full online storefront: product catalog with categories (Roti, Kue, Bolu), product pages with flavors/stock/wishlist/live chat, cart and checkout with voucher and balance/manual-transfer payment, order tracking, and an admin panel for product and order management. Built with the Agile methodology (plan, design, develop, test, deploy, review) and co-authored as a published research paper — \"The Recipe for Digital Growth: Optimizing KisheSnack's Web Presence for Market Expansion\" (Journal of Information System & Artificial Intelligence) — validated with a 10-respondent user satisfaction survey scoring consistently 4.0–5.0/5 across UI, UX, and functionality.",
-    tech: ["CodeIgniter 3", "Agile Methodology", "UI/UX Testing"],
+    bullets: [
+      "Built a full CodeIgniter 3 storefront for a real bakery business — product catalog, flavors/stock/wishlist/live chat, cart and checkout, order tracking, and an admin panel — end to end with the Agile methodology.",
+      "Co-authored a published paper on the project, \"The Recipe for Digital Growth: Optimizing KisheSnack's Web Presence for Market Expansion\" (Journal of Information System & Artificial Intelligence).",
+      "Validated the build with a 10-respondent user satisfaction survey, scoring consistently 4.0–5.0/5 across UI, UX, and functionality.",
+    ],
+    tools: ["CodeIgniter 3", "Agile Methodology", "UI/UX Testing"],
+    photos: [
+      {
+        src: "/projects/kishesnack/storefront.png",
+        alt: "TODO: replace with a real screenshot of the KisheSnack storefront and category catalog",
+        caption: "Storefront & catalog",
+      },
+      {
+        src: "/projects/kishesnack/product-page.png",
+        alt: "TODO: replace with a real screenshot of a KisheSnack product page",
+        caption: "Product page",
+      },
+      {
+        src: "/projects/kishesnack/cart-checkout.png",
+        alt: "TODO: replace with a real screenshot of the KisheSnack cart and checkout flow",
+        caption: "Cart & checkout",
+      },
+    ],
   },
   {
-    title: "System Documentation — SEEDS, iGracias, Disertasi & TA Pascasarjana Applications",
-    period: "Jul 2025 – Present (Technical Writer Intern, Direktorat PuTI)",
-    description:
-      "End-to-end technical documentation across 4 Telkom University applications — SEEDS (Student Enrollment Education and Data System) v3.7, iGracias, the Disertasi application, and the Pascasarjana Final Assignment (TA) application. Produced User Manuals, UAT / Rangkaian Uji Penerimaan Pengguna (User Acceptance Test) reports, meeting notulensi, appendices, flow/use-case diagrams, and development timelines, tracking progress in Notion. Coordinated requirements and sign-off across internal, external, faculty, and Telkom branch meetings to keep documentation aligned with what each stakeholder group actually needed.",
-    tech: ["User Manual", "UAT", "Notulensi", "Notion", "Diagrams"],
+    slug: "system-documentation",
+    title: "System Documentation — SEEDS, iGracias, Disertasi & TA Pascasarjana",
+    role: "Technical Writer Intern, Direktorat PuTI",
+    period: "Jul 2025 – Present",
+    bullets: [
+      "Produced end-to-end documentation — User Manuals, UAT / Rangkaian Uji Penerimaan Pengguna reports, meeting notulensi, and flow/use-case diagrams — across 4 Telkom University applications (SEEDS v3.7, iGracias, Disertasi, TA Pascasarjana).",
+      "Coordinated requirements gathering and sign-off across internal, external, faculty, and Telkom branch stakeholders, tracking progress in Notion.",
+      "Kept documentation aligned to what each stakeholder group actually needed, instead of one generic report for everyone.",
+    ],
+    tools: ["User Manual", "UAT", "Notulensi", "Notion", "Diagrams"],
+    photos: [
+      {
+        src: "/projects/system-documentation/user-manual.png",
+        alt: "TODO: replace with a real screenshot or photo of a User Manual page",
+        caption: "User Manual",
+      },
+      {
+        src: "/projects/system-documentation/uat-report.png",
+        alt: "TODO: replace with a real screenshot of a UAT report",
+        caption: "UAT report",
+      },
+      {
+        src: "/projects/system-documentation/flow-diagram.png",
+        alt: "TODO: replace with a real flow/use-case diagram",
+        caption: "Flow / use-case diagram",
+      },
+    ],
   },
 ];

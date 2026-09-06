@@ -1,7 +1,7 @@
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
 import { CoreSkills } from "@/components/sections/CoreSkills";
-import { FeaturedProjects } from "@/components/sections/FeaturedProjects";
+import { Projects } from "@/components/sections/Projects";
 import { Experience } from "@/components/sections/Experience";
 import { Certifications } from "@/components/sections/Certifications";
 import { Contact } from "@/components/sections/Contact";
@@ -12,7 +12,7 @@ export default function Home() {
       <Hero />
       <About />
       <CoreSkills />
-      <FeaturedProjects />
+      <Projects />
       <Experience />
       <Certifications />
       <Contact />
