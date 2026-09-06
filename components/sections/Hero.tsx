@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Download, MapPin } from "lucide-react";
+import { ArrowDown, Download, MapPin } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { CopyEmailButton } from "@/components/ui/CopyEmailButton";
 import { SocialIconLink } from "@/components/ui/SocialIconLink";
@@ -19,11 +19,11 @@ export function Hero() {
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-32 -right-20 h-96 w-96 rounded-full bg-accent-soft opacity-70 blur-3xl dark:opacity-30"
+        className="animate-float-slow pointer-events-none absolute -top-32 -right-20 h-96 w-96 rounded-full bg-accent-soft opacity-70 blur-3xl dark:opacity-30"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-40 -left-24 h-80 w-80 rounded-full bg-accent-soft opacity-40 blur-3xl dark:opacity-20"
+        className="animate-float-slower pointer-events-none absolute -bottom-40 -left-24 h-80 w-80 rounded-full bg-accent-soft opacity-40 blur-3xl dark:opacity-20"
       />
       <Container
         className={
@@ -48,9 +48,13 @@ export function Hero() {
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <a href={profile.cvUrl} download className={buttonClass("primary")}>
+            <a href="#projects" className={buttonClass("primary")}>
+              View my work
+              <ArrowDown className="h-4 w-4" aria-hidden="true" />
+            </a>
+            <a href={profile.cvUrl} download className={buttonClass("secondary")}>
               <Download className="h-4 w-4" aria-hidden="true" />
-              Download CV (PDF)
+              Download CV
             </a>
             <CopyEmailButton email={profile.email} />
             <div className="flex items-center gap-2">
@@ -73,6 +77,14 @@ export function Hero() {
           </Reveal>
         ) : null}
       </Container>
+
+      <a
+        href="#about"
+        aria-label="Scroll to About section"
+        className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 text-ink-muted/60 transition-colors hover:text-accent sm:block"
+      >
+        <ArrowDown className="h-5 w-5 animate-bounce-slow" aria-hidden="true" />
+      </a>
     </section>
   );
 }

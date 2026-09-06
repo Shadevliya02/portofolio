@@ -33,7 +33,7 @@ All text/data lives in **`content/*.ts`** as typed objects — you can edit thes
 |---|---|
 | `content/profile.ts` | Name, role line, contact info, links, education, About paragraphs |
 | `content/skills.ts` | The 4 Core Skills groups + the small "Additional" skills line |
-| `content/projects.ts` | The 3 featured case studies + the "Other Work" cards |
+| `content/projects.ts` | The Projects timeline — one entry per project, each with a role, short bullets, tools, and proof photos |
 | `content/experience.ts` | Experience timeline (each entry supports up to 5 `photos`) |
 | `content/certifications.ts` | Certifications & Awards list (`highlight: true` to accent one, `proofUrl` for a certificate link) |
 | `content/types.ts` | The TypeScript shape all of the above must match |
@@ -44,22 +44,22 @@ Anything still needing real information is marked `TODO: ...` inline — see **[
 grep -rn "TODO" content/
 ```
 
-## Replacing project screenshots & experience photos
+## Replacing project & experience photos
 
-Every project currently ships with 2 illustrative placeholder screenshots (`public/placeholders/screenshot-*.png`, generated graphics clearly captioned "Placeholder — replace with a real screenshot"), and every experience entry ships with 5 placeholder photos (`public/placeholders/experience-photo-*.png`). None of these are real data — see `TODO.md`.
+Every project and experience entry renders its `photos` array as a small clickable thumbnail strip (lightbox on click). The 4 data/research projects already ship real screenshots in `public/projects/<slug>/`; **KisheSnack** and **System Documentation** currently ship illustrative placeholder graphics (`public/projects/kishesnack/*.png`, `public/projects/system-documentation/*.png`, captioned "Placeholder — replace with a real screenshot"), and every experience entry ships placeholder photos (`public/placeholders/experience-photo-*.png`). None of the placeholders are real data — see `TODO.md`.
 
 To replace them:
 
 1. Drop your real image files into `public/projects/<slug>/` (project screenshots) or a folder of your choice (experience photos).
-2. Update the corresponding `screenshots` array in `content/projects.ts`, or `photos` array in `content/experience.ts`:
+2. Update the corresponding `photos` array in `content/projects.ts` or `content/experience.ts`:
    ```ts
-   screenshots: [
-     { src: "/projects/powerbi-dashboard/01-overview.png", alt: "Overview page of the Power BI dashboard showing..." },
+   photos: [
+     { src: "/projects/kishesnack/storefront.png", alt: "Storefront page of the KisheSnack site showing..." },
    ],
    ```
-3. Write a descriptive `alt` for each image (accessibility + SEO). `caption` is optional and only used by project screenshots.
+3. Write a descriptive `alt` for each image (accessibility + SEO). `caption` is optional.
 
-An empty `screenshots` array renders a "Screenshots coming soon" placeholder instead of a broken image, and an empty/omitted `photos` array simply renders nothing — the site is safe to deploy at any point in between.
+An empty/omitted `photos` array simply renders nothing — the site is safe to deploy at any point in between.
 
 ## Replacing the CV
 
@@ -103,5 +103,5 @@ Static files are emitted to `out/`. For GitHub Pages under a repo subpath, also 
 
 - Semantic landmarks (`header`/`nav`/`main`/`footer`), a "Skip to content" link, and a full heading hierarchy (one `h1` per page).
 - Per-page metadata, a generated Open Graph image (`app/opengraph-image.tsx`), `sitemap.ts`, and `robots.ts`.
-- `app/projects/[slug]/page.tsx` statically pre-renders all 3 project pages via `generateStaticParams` (`dynamicParams = false`, so unknown slugs 404 instead of rendering on demand).
+- The whole site is a single page (`app/page.tsx`) — projects live inline in the Projects section rather than on separate case-study routes, so there's nothing to statically pre-render beyond `/`.
 - Print styles (`@media print` in `app/globals.css`) hide navigation/buttons and force a clean light layout for the main page.
