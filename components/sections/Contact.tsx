@@ -2,8 +2,6 @@ import { Download, Mail } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
-import { SocialIconLink } from "@/components/ui/SocialIconLink";
-import { LinkedinIcon } from "@/components/icons/BrandIcons";
 import { profile } from "@/content/profile";
 import { buttonClass } from "@/lib/utils";
 
@@ -33,9 +31,6 @@ export function Contact() {
             </a>
           </div>
 
-          <div className="mt-6 flex items-center justify-center gap-3">
-            <SocialIconLink href={"https://www.linkedin.com/in/sharla-devrina-aurelliya-98243614a"} label="LinkedIn" icon={LinkedinIcon} />
-          </div>
         </Reveal>
       </Container>
     </section>

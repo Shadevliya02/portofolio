@@ -65,7 +65,7 @@ export function Certifications() {
                         className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-accent hover:underline"
                       >
                         <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
-                        View certificate
+                        View
                       </a>
                     )
                   ) : null}

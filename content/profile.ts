@@ -2,14 +2,14 @@ import type { Profile } from "./types";
 
 export const profile: Profile = {
   name: "Sharla Devrina Aurelliya",
-  roleLine: "Data Analyst & IT Support",
+  roleLine: "Fresh Graduate | Data Analyst | Technical Writer",
   subline: "Turning messy data into clear, decision-ready reports.",
-  location: "South Jakarta, Indonesia",
-  openTo: "Open to Bandung, Jakarta, or remote",
+  location: "Jakarta, Indonesia",
+  openTo: "Open to remote",
   email: "devrinasharla@gmail.com",
   phone: "+62 821-1807-1547",
   linkedin: "https://www.linkedin.com/in/sharla-devrina-aurelliya-98243614a",
-  github: "TODO: isi URL GitHub",
+  github: "https://github.com/Shadevliya02",
   photoUrl: "",
   cvUrl: "/cv/Sharla-Devrina-Aurelliya-CV.pdf",
   education: {
