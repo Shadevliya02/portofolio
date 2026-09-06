@@ -8,9 +8,10 @@ export const skills: SkillsContent = {
       items: [
         "Microsoft Excel (Power Query, PivotTable, XLOOKUP/VLOOKUP, conditional formatting)",
         "Power BI (data modeling, DAX, interactive dashboard)",
-        "Python (pandas, NumPy, matplotlib/seaborn)",
+        "Python (pandas, NumPy, matplotlib/seaborn, scikit-learn)",
         "Data cleaning & validation",
         "Exploratory Data Analysis",
+        "NLP & sentiment analysis (Transformers/IndoRoBERTa, BERTopic)",
       ],
     },
     {
