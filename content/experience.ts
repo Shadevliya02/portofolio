@@ -77,17 +77,19 @@ export const experience: ExperienceItem[] = [
     ),
   },
   {
-    role: "Online Shop Owner",
-    organization: "",
+    role: "Admin Online Shop",
+    organization: "Genshin Impact Account Marketplace (co-owned with partner)",
     location: "Indonesia",
     period: "2021 – 2023",
     bullets: [
-      "Managed daily order processing and stock records, keeping inventory accurate without a formal system.",
-      "Tracked sales over time and used the records to decide what to restock first.",
-      "Resolved customer inquiries and transaction issues with clear, timely responses, retaining repeat buyers.",
+      "Co-ran a gaming-account marketplace business with a partner across 2 Instagram storefronts and 2 Twitter/X storefronts, plus a listing on ZeusX, an international marketplace, expanding sales beyond the local market.",
+      "Built and led a 4-person support team (1 editor and 1 middleman/rekber handler per platform pair), keeping post quality and transaction turnaround consistent across all 4 accounts.",
+      "Tracked daily sales, expenses, and profit in BukuWarung, reconciling local Instagram/Twitter revenue against ZeusX's international wallet balance and withdrawals to keep the books accurate.",
+      "Ran ongoing market analysis — competitor pricing, testimonial/review volume, follower growth — to guide restocking and pricing decisions and sustain the business's growth.",
+      "Acted as the trusted middleman (rekber) on high-value transactions, resolving buyer/seller disputes and safeguarding both sides of each trade to protect the shops' reputation.",
     ],
     photos: [1, 3, 5, 2, 4].map((n) =>
-      photo(n as 1 | 2 | 3 | 4 | 5, "TODO: replace with a real photo from the Online Shop Owner work"),
+      photo(n as 1 | 2 | 3 | 4 | 5, "TODO: replace with a real photo from the Admin Online Shop work"),
     ),
   },
 ];
