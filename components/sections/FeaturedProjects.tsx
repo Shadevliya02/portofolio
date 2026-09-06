@@ -14,11 +14,11 @@ export function FeaturedProjects() {
             id="projects-heading"
             eyebrow="Featured Projects"
             title="Selected data & reporting work"
-            description="Three case studies covering the core of the role: dashboarding, data cleaning, and exploratory analysis."
+            description="Case studies covering the core of the role — dashboarding, data cleaning, exploratory analysis — plus published NLP research."
           />
         </Reveal>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
+        <div className="mt-10 grid gap-6 sm:grid-cols-2">
           {projects.map((project, index) => (
             <Reveal key={project.slug} delay={index * 80} variant="scale">
               <ProjectCard project={project} />

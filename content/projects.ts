@@ -122,31 +122,115 @@ export const projects: ProjectDetail[] = [
     slug: "python-eda",
     title: "Python Exploratory Data Analysis",
     summary:
-      "Exploratory data analysis in Python — from raw data to descriptive statistics and visual patterns worth reporting.",
+      "Exploratory data analysis of the UCI Red Wine Quality dataset in Python — from descriptive statistics to a tuned Random Forest baseline.",
     role: "Data Analyst (independent project)",
-    tools: ["Python", "pandas", "NumPy", "matplotlib", "seaborn", "Jupyter Notebook"],
+    tools: ["Python", "pandas", "NumPy", "matplotlib", "seaborn", "scikit-learn", "Jupyter Notebook"],
     period: "TODO: isi periode pengerjaan",
-    focus: "pandas, descriptive statistics, visualization, findings",
+    focus: "pandas, descriptive statistics, visualization, classification baseline",
     problem:
-      "TODO: pertanyaan yang ingin dijawab lewat EDA ini (contoh: faktor apa paling berkorelasi dengan [variabel target]?).",
+      "Which physicochemical properties of red wine (acidity, sugar, sulphates, alcohol, etc.) actually relate to its quality score, and how well can a standard classifier predict that score from lab measurements alone?",
     data: {
-      source: "TODO: nama & sumber dataset (sertakan tautan jika publik)",
-      rowsColumns: "TODO: jumlah baris & kolom data",
-      initialCondition: "TODO: kondisi awal data (missing values, tipe data tidak sesuai, outlier, dll.).",
+      source:
+        "Red Wine Quality dataset (Cortez et al., 2009) via Kaggle — winequality-red.csv.",
+      rowsColumns:
+        "1,599 wine samples across 12 columns: 11 physicochemical features (fixed/volatile acidity, citric acid, residual sugar, chlorides, free/total sulfur dioxide, density, pH, sulphates, alcohol) plus an integer quality score (3–8).",
+      initialCondition:
+        "No missing values or type issues, but the target is heavily imbalanced — quality scores 5 and 6 alone account for 82% of samples (682 and 638 rows), leaving very few examples at the extremes (10 at quality 3, 53 at quality 4, 18 at quality 8).",
     },
     process: [
-      "Loaded the dataset into Jupyter with pandas and inspected structure, types, and missing values.",
-      "Cleaned the dataset — handled missing values, fixed types, removed irrelevant columns.",
-      "Computed descriptive statistics (mean, median, distribution) for key variables.",
-      "Visualized patterns with matplotlib and seaborn (histograms, boxplots, correlation heatmap).",
-      "Summarized findings into key insights for a non-technical audience.",
+      "Loaded winequality-red.csv with pandas and checked shape, dtypes, and null counts — confirmed all 1,599 rows are complete with no missing values.",
+      "Computed descriptive statistics (df.describe().T) for all 11 features and the quality target to establish ranges, means, and spread.",
+      "Plotted the quality distribution with seaborn, surfacing the strong class imbalance around scores 5–6 before any modeling.",
+      "Built a full correlation heatmap across all features — alcohol (+0.48) and sulphates (+0.25) correlate most with quality, volatile acidity (-0.39) correlates negatively.",
+      "Plotted per-feature histograms and boxplots across all 11 variables to check distribution shape and flag outliers (notably in chlorides, residual sugar, and sulphates).",
+      "Split the data 80/20 (1,279 train / 320 test) and standardized features with StandardScaler.",
+      "Trained a RandomForestClassifier baseline (100 trees) and evaluated it with accuracy, a full classification report, a confusion matrix, and feature importances.",
+      "Ran GridSearchCV (5-fold CV) over n_estimators, max_depth, and min_samples_split to check whether tuning could close the gap on the minority classes.",
     ],
-    keyInsights: ["TODO: insight #1.", "TODO: insight #2.", "TODO: insight #3."],
+    keyInsights: [
+      "Quality scores cluster heavily around 5 and 6 (82% of the dataset), with almost no data at the extremes — this imbalance, not the model, is the main ceiling on classification performance.",
+      "Alcohol content is the single strongest driver of wine quality, both by correlation (r = 0.48) and by Random Forest feature importance (~15%, the top-ranked feature), followed by sulphates and (negatively) volatile acidity.",
+      "The baseline Random Forest reached 66% accuracy but 0% precision/recall on quality 3, 4, and 8 — GridSearchCV's best cross-validated setting (max_depth=20, min_samples_split=2, n_estimators=200, CV accuracy 0.691) only reached 65.9% on the held-out test set, confirming that tuning hyperparameters alone can't fix a class-imbalance problem.",
+    ],
     impact:
-      "Built a repeatable workflow for turning a raw dataset into statistics and visuals behind a clear narrative. TODO: dampak/hasil jika ada (mis. rekomendasi yang dipakai, keputusan yang terbantu).",
+      "Built a repeatable pandas → seaborn → scikit-learn workflow for taking a raw physicochemical dataset to a validated classification baseline: statistics and correlation analysis before any model touches the data, then a GridSearchCV pass treated as a hypothesis to test rather than a guaranteed win. Seeing the tuned model's cross-validation score (0.691) not hold up on the test set (0.659) was a concrete, hands-on lesson that model tuning can't compensate for skewed classes — the real fix lives upstream, in resampling or reframing the target, not in the classifier.",
     screenshots: [
-      { src: "/placeholders/screenshot-python-1.png", alt: "TODO: replace with a real screenshot of the distribution plot" },
-      { src: "/placeholders/screenshot-python-2.png", alt: "TODO: replace with a real screenshot of the correlation plot" },
+      {
+        src: "/projects/python-eda/quality-distribution.png",
+        alt: "Bar chart showing the distribution of red wine quality scores, heavily concentrated at 5 and 6",
+        caption: "Quality distribution: scores 5 and 6 make up 82% of the 1,599 samples.",
+      },
+      {
+        src: "/projects/python-eda/correlation-heatmap.png",
+        alt: "Correlation heatmap across all 11 physicochemical features and the quality target",
+        caption: "Correlation matrix: alcohol and sulphates correlate positively with quality; volatile acidity negatively.",
+      },
+      {
+        src: "/projects/python-eda/feature-importance.png",
+        alt: "Horizontal bar chart of Random Forest feature importances, led by alcohol and sulphates",
+        caption: "Random Forest feature importance: alcohol is the top predictor of quality.",
+      },
+      {
+        src: "/projects/python-eda/confusion-matrix.png",
+        alt: "Confusion matrix of the Random Forest classifier showing strong confusion between adjacent quality classes",
+        caption: "Confusion matrix: errors concentrate between adjacent classes (5↔6, 6↔7); the rare classes (3, 4, 8) are barely predicted.",
+      },
+    ],
+  },
+  {
+    slug: "paylater-sentiment-analysis",
+    title: "Multi-Platform Sentiment Analysis of PayLater Services",
+    summary:
+      "Published research comparing public sentiment toward Indonesian PayLater (Buy Now Pay Later) services across X, YouTube, and TikTok, using a fine-tuned IndoRoBERTa classifier and BERTopic to surface what's actually driving the negativity.",
+    role: "Research Author — 1st author, Faculty of Applied Science, Telkom University",
+    tools: ["Python", "IndoRoBERTa (Transformers)", "BERTopic", "Sastrawi", "NLTK", "pandas", "scikit-learn"],
+    period:
+      "Aug 2025 – Jan 2026 · published at the 2026 International Seminar on Intelligent Business and Edge-Computing Research (ISIBER)",
+    focus: "NLP, transformer fine-tuning, topic modeling, cross-platform comparison",
+    problem:
+      "Existing sentiment-analysis research on Indonesia's fast-growing PayLater (Buy Now Pay Later) services almost always studies a single platform or a single brand, hiding how public perception actually differs across text-based and video-based social media. This study asks how sentiment toward PayLater differs across X (Twitter), YouTube, and TikTok — and, beyond a simple positive/negative label, what specific themes (impulsive buying regret, debt collection, usury/riba, and more) actually drive the negative sentiment on each platform.",
+    data: {
+      source:
+        "34,652 raw posts/comments scraped across three platforms over a 6-month observation period (Aug 2025 – Jan 2026): X via Boolean keyword search (\"paylater\", \"galbay\", excluding promo/diskon terms), YouTube via a custom Python script against the YouTube Data API, and TikTok via hashtag-based scraping (#KorbanPaylater and related viral videos).",
+      rowsColumns:
+        "34,652 raw interactions → 32,631 valid records after filtering spam and bots (13,312 from X, 10,441 from YouTube, 8,878 from TikTok), each a single text row later labeled Positive, Neutral, or Negative.",
+      initialCondition:
+        "Raw, highly informal Indonesian social-media text — slang and \"alay\" spelling (\"yg\", \"gak\", \"bgt\"), code-mixing, emojis, URLs, hashtags, @mentions, and promotional spam — with no existing sentiment or topic labels.",
+    },
+    process: [
+      "Built three parallel notebooks (twitter.ipynb, youtube.ipynb, tiktok.ipynb) to scrape platform-native data: Boolean X search, the YouTube Data API, and hashtag-based TikTok scraping — 34,652 raw posts/comments in total.",
+      "Deduplicated records and normalized timestamps per platform (dateparser, python-dateutil) so a single time series analysis could span all three sources.",
+      "Cleaned text with a dedicated preprocessing pipeline: stripped URLs/HTML/hashtags/@mentions, case-folded, then normalized slang and \"alay\" spelling against a custom Indonesian dictionary built specifically for PayLater discourse (e.g. \"yg\" → \"yang\", \"gak\" → \"tidak\").",
+      "Removed emojis and stopwords with Sastrawi and NLTK, cutting the dataset down to 32,631 valid, spam-free records for modeling.",
+      "Ran an initial lexicon-based sentiment pass to sanity-check polarity before committing to a transformer model.",
+      "Fine-tuned an IndoRoBERTa Base Sentiment Classifier (12 transformer layers, 768 hidden units, ~124M parameters, pre-trained on IndoNLU SmSA) on manually annotated, platform-specific gold-standard subsets, and benchmarked it per platform against SVM and Random Forest baselines.",
+      "Applied BERTopic (transformer embeddings + class-based TF-IDF) to the negative-sentiment cluster to extract interpretable topics instead of stopping at a polarity label.",
+      "Resampled sentiment scores weekly with linear interpolation to build a six-month comparative time series across platforms, surfacing event-driven shifts such as the November \"11.11\" shopping festival.",
+    ],
+    keyInsights: [
+      "IndoRoBERTa outperformed both baselines on every platform, reaching 0.857 average accuracy overall and its biggest edge on YouTube (0.810 vs. 0.679 for the best baseline, a +13.1% gain) — dynamic masking handled noisy, unstructured video comments far better than SVM or Random Forest.",
+      "Sentiment is not uniform across platforms: YouTube and TikTok both run over 50% negative — reactive venting triggered by viral debt-collection content — while X shows a more balanced mix of complaints and promotions, serving as both a grievance channel and a promo hub.",
+      "BERTopic on the negative cluster shows the discontent isn't only about debt collectors: 25.5% of negative posts trace back to impulsive buying regret (especially motorbike/vehicle purchases) and another 20.9% to psychological distress over usury (riba), ahead of account/payment errors (21.8%), anti-debt community sentiment (16.3%), and socio-economic criticism (15.5%).",
+      "A clear temporal pattern emerged around the November 2025 \"11.11\" shopping festival: interaction volume spiked sharply (especially on TikTok) while sentiment simultaneously dropped — enthusiasm for promotions and anxiety about rising debt limits showing up in the same event.",
+    ],
+    impact:
+      "Co-authored and published as \"Leveraging IndoRoBERTa and BERTopic for Comparative Multi-Platform Sentiment Analysis of PayLater Services in Indonesia\" at the 2026 International Seminar on Intelligent Business and Edge-Computing Research (ISIBER). Beyond the accuracy numbers, the topic-modeling layer reframed the practical takeaway: because a quarter of negative sentiment traces back to users' own impulsive-buying regret rather than external debt-collection tactics, the paper argues that regulators (OJK) and fintech platforms need behavioral financial-literacy interventions alongside technical and regulatory fixes. Running three independent scraping pipelines end-to-end and reconciling their very different noise profiles into one comparable, weekly time series was the core engineering challenge — and the clearest lesson that platform-specific preprocessing matters as much as model choice.",
+    screenshots: [
+      {
+        src: "/projects/paylater-sentiment-analysis/model-accuracy-by-platform.png",
+        alt: "Grouped bar chart comparing SVM, Random Forest, and IndoRoBERTa accuracy across X, YouTube, and TikTok",
+        caption: "IndoRoBERTa beats both baselines on every platform, most notably on YouTube (+13.1%).",
+      },
+      {
+        src: "/projects/paylater-sentiment-analysis/negative-sentiment-topics.png",
+        alt: "Horizontal bar chart of the dominant BERTopic themes within the negative-sentiment cluster",
+        caption: "BERTopic on the negative cluster: impulsive buying regret and usury (riba) distress outrank debt-collection complaints.",
+      },
+      {
+        src: "/projects/paylater-sentiment-analysis/dataset-collection-funnel.png",
+        alt: "Grouped bar chart of raw vs. valid data collected from X, YouTube, and TikTok",
+        caption: "34,652 raw posts/comments filtered down to 32,631 valid records across the three platforms.",
+      },
     ],
   },
 ];

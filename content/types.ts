@@ -43,7 +43,8 @@ export interface SkillsContent {
 export type ProjectSlug =
   | "powerbi-dashboard"
   | "excel-data-cleaning"
-  | "python-eda";
+  | "python-eda"
+  | "paylater-sentiment-analysis";
 
 export interface Screenshot {
   src: string;
