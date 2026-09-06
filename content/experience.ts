@@ -16,9 +16,10 @@ export const experience: ExperienceItem[] = [
       "Documented end-to-end development processes into structured reports, giving teams one reliable reference instead of scattered notes.",
       "Translated business process analysis into standardized documentation, letting the development team build from a shared source of truth.",
     ],
-    photos: [1, 2, 3, 4, 5].map((n) =>
-      photo(n as 1 | 2 | 3 | 4 | 5, "TODO: replace with a real photo from the Technical Writer Intern role"),
-    ),
+    photos: [1, 2, 3].map((n) => ({
+      src: `/placeholders/experience-photo-seeds-${n}.png`,
+      alt: "Technical Writer Intern experience",
+    })),
   },
   {
     role: "Mobile Programming Practicum Assistant",
@@ -30,9 +31,10 @@ export const experience: ExperienceItem[] = [
       "Walked students through fixes step by step, so they understood the reasoning and could apply it next time.",
       "Explained core concepts — UI components, data handling, event-driven programming — connecting theory to working code.",
     ],
-    photos: [2, 3, 4, 5, 1].map((n) =>
-      photo(n as 1 | 2 | 3 | 4 | 5, "TODO: replace with a real photo from the Mobile Programming Practicum Assistant role"),
-    ),
+    photos: [1, 2, 3].map((n) => ({
+      src: `/placeholders/experience-photo-mobile-${n}.png`,
+      alt: "Mobile Programming Practicum Assistant experience",
+    })),
   },
   {
     role: "Interface Design Practicum Assistant",
@@ -44,9 +46,7 @@ export const experience: ExperienceItem[] = [
       "Resolved most module-related questions directly as first-line support, cutting wait time for students.",
       "Escalated unresolved cases to lecturers with clear context, routing issues to the right person the first time.",
     ],
-    photos: [3, 4, 5, 1, 2].map((n) =>
-      photo(n as 1 | 2 | 3 | 4 | 5, "TODO: replace with a real photo from the Interface Design Practicum Assistant role"),
-    ),
+
   },
   {
     role: "Liaison Officer Coordinator",
@@ -58,9 +58,10 @@ export const experience: ExperienceItem[] = [
       "Monitored progress in real time, catching delays early enough to adjust before they affected the event.",
       "Managed communication between participants, officers, and the organizing committee, keeping all three in sync.",
     ],
-    photos: [4, 5, 1, 2, 3].map((n) =>
-      photo(n as 1 | 2 | 3 | 4 | 5, "TODO: replace with a real photo from the Liaison Officer Coordinator role"),
-    ),
+    photos: [1, 2, 3].map((n) => ({
+      src: `/placeholders/experience-photo-sre-${n}.png`,
+      alt: "Liaison Officer Coordinator experience",
+    })),
   },
   {
     role: "Student Mentor",
