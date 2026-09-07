@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import Image from "next/image";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import type { Screenshot } from "@/content/types";
 
@@ -50,7 +49,7 @@ export function Lightbox({
         type="button"
         onClick={onClose}
         aria-label="Close"
-        className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20"
+        className="absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full bg-black/70 text-white shadow-lg ring-1 ring-white/20 transition-colors hover:bg-black"
       >
         <X className="h-5 w-5" aria-hidden="true" />
       </button>
@@ -64,7 +63,7 @@ export function Lightbox({
               onNavigate(-1);
             }}
             aria-label="Previous"
-            className="absolute left-4 top-1/2 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20"
+            className="absolute left-4 top-1/2 z-10 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/70 text-white shadow-lg ring-1 ring-white/20 transition-colors hover:bg-black"
           >
             <ChevronLeft className="h-5 w-5" aria-hidden="true" />
           </button>
@@ -75,25 +74,27 @@ export function Lightbox({
               onNavigate(1);
             }}
             aria-label="Next"
-            className="absolute right-4 top-1/2 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20"
+            className="absolute right-4 top-1/2 z-10 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/70 text-white shadow-lg ring-1 ring-white/20 transition-colors hover:bg-black"
           >
             <ChevronRight className="h-5 w-5" aria-hidden="true" />
           </button>
         </>
       ) : null}
 
-      <div className="max-h-[85vh] max-w-4xl" onClick={(event) => event.stopPropagation()}>
-        <Image
+      <div
+        className="flex max-h-[85vh] max-w-[92vw] flex-col items-center sm:max-w-[85vw]"
+        onClick={(event) => event.stopPropagation()}
+      >
+        {/* Plain <img>: photos here mix portrait and landscape, and next/image needs a
+            fixed width/height hint that would misreport the box for whichever don't match. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           src={active.src}
           alt={active.alt}
-          width={1600}
-          height={1000}
-          loading="eager"
-          sizes="(min-width: 1024px) 896px, 90vw"
-          className="max-h-[85vh] w-auto rounded-lg object-contain"
+          className="max-h-[85vh] max-w-full rounded-lg object-contain"
         />
         {active.caption ? (
-          <p className="mt-3 text-center text-sm text-white/80">{active.caption}</p>
+          <p className="mt-3 max-w-full text-center text-sm text-white/80">{active.caption}</p>
         ) : null}
       </div>
     </div>
