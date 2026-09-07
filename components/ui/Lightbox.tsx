@@ -1,9 +1,13 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import type { Screenshot } from "@/content/types";
+import { cn } from "@/lib/utils";
+
+const CLOSE_ANIMATION_MS = 200;
 
 export function Lightbox({
   photos,
@@ -16,8 +20,40 @@ export function Lightbox({
   onClose: () => void;
   onNavigate: (delta: 1 | -1) => void;
 }) {
+  const [renderedIndex, setRenderedIndex] = useState<number | null>(null);
+  const [visible, setVisible] = useState(false);
+  const wasOpen = useRef(false);
+  const closeTimeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  // Mirror the incoming index into local state during render (no effect needed) so
+  // the displayed photo swaps immediately on open/navigate, while `visible` below
+  // still controls the fade — see the close-timeout effect for the closing half.
+  if (index !== null && index !== renderedIndex) {
+    setRenderedIndex(index);
+  }
+
   useEffect(() => {
-    if (index === null) return;
+    if (index !== null) {
+      clearTimeout(closeTimeout.current);
+      if (!wasOpen.current) {
+        // Opening: mount hidden first, then flip to visible so the CSS transition runs.
+        requestAnimationFrame(() => setVisible(true));
+      }
+      wasOpen.current = true;
+    } else if (wasOpen.current) {
+      wasOpen.current = false;
+      setVisible(false);
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      closeTimeout.current = setTimeout(
+        () => setRenderedIndex(null),
+        reduceMotion ? 0 : CLOSE_ANIMATION_MS,
+      );
+    }
+    return () => clearTimeout(closeTimeout.current);
+  }, [index]);
+
+  useEffect(() => {
+    if (renderedIndex === null) return;
 
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") onClose();
@@ -33,17 +69,17 @@ export function Lightbox({
       document.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = previousOverflow;
     };
-  }, [index, onClose, onNavigate]);
+  }, [renderedIndex, onClose, onNavigate]);
 
-  if (index === null) return null;
-  const active = photos[index];
+  if (renderedIndex === null) return null;
+  const active = photos[renderedIndex];
 
-  return (
+  return createPortal(
     <div
       role="dialog"
       aria-modal="true"
       aria-label={active.alt}
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4"
+      className={cn("lightbox-backdrop", visible && "is-visible")}
       onClick={onClose}
     >
       <button
@@ -82,7 +118,10 @@ export function Lightbox({
         </>
       ) : null}
 
-      <div className="max-h-[85vh] max-w-4xl" onClick={(event) => event.stopPropagation()}>
+      <div
+        className={cn("lightbox-panel max-h-[85vh] max-w-4xl", visible && "is-visible")}
+        onClick={(event) => event.stopPropagation()}
+      >
         <Image
           src={active.src}
           alt={active.alt}
@@ -96,6 +135,7 @@ export function Lightbox({
           <p className="mt-3 text-center text-sm text-white/80">{active.caption}</p>
         ) : null}
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
