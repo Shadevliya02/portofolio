@@ -170,4 +170,28 @@ export const projects: ProjectItem[] = [
       },
     ],
   },
+  {
+    slug: "freelance-commissions",
+    title: "Freelance Commissions — Reports, Design & Development",
+    role: "Freelancer (independent, on-demand)",
+    period: "TODO: isi periode pengerjaan",
+    bullets: [
+      "Took on paid freelance commissions (\"joki\") from students and small clients, spanning academic/business reports, graphic design, mobile & web development, and UI/UX design.",
+      "Scoped and delivered each order independently end-to-end, switching between very different skill sets from one commission to the next instead of specializing in a single stack.",
+      "TODO: add a concrete result once you have one to highlight (e.g. number of orders completed, a repeat client, or a specific deliverable you're proud of).",
+    ],
+    tools: ["Report Writing", "UI/UX Design", "Mobile Development", "Web Development"],
+  },
+  {
+    slug: "research-team-admin",
+    title: "TODO: isi judul penelitian",
+    role: "Treasurer & Secretary — 6-member research team",
+    period: "TODO: isi periode pengerjaan",
+    bullets: [
+      "Acted as treasurer for a 6-person research team, tracking the anggaran (budget) and preparing the RAB (Rencana Anggaran Biaya) so spending stayed accounted for from proposal to execution.",
+      "Served as secretary, writing notulensi (meeting minutes) for every team meeting so decisions and action items were on record instead of relying on memory.",
+      "Handled the team's supporting logistics — licensing/permits and consumption (konsumsi) for team activities — so the rest of the team could focus on the research itself.",
+    ],
+    tools: ["Budgeting (RAB)", "Meeting Notulensi", "Licensing & Permits", "Team Coordination"],
+  },
 ];

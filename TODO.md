@@ -29,6 +29,18 @@ Selama masih `TODO:`, ikon LinkedIn/GitHub di Hero, Contact, dan Footer otomatis
 
 Setiap project di `content/projects.ts` sekarang punya bentuk yang sama dengan `content/experience.ts`: `role`, `period`, `bullets` (2–3 kalimat singkat), `tools`, dan `photos`. Kalau ada detail lain yang ingin ditonjolkan (angka baru, insight baru), edit langsung `bullets`-nya — tidak perlu struktur tambahan.
 
+## 4a. Project — Freelance Commissions (`content/projects.ts`, slug `freelance-commissions`)
+
+- [ ] `period` — isi rentang waktu ngerjain orderan freelance/joki-an ini (masih `"TODO: isi periode pengerjaan"`).
+- [ ] Bullet ketiga — ganti dengan hasil konkret kalau ada (jumlah orderan, klien repeat order, atau satu deliverable yang paling dibanggakan).
+- [ ] (Opsional) `photos` — belum ada sama sekali. Kalau punya contoh laporan/desain/UI yang bisa dipamerkan (dan boleh dipublish), tambahkan array `photos: [...]` seperti project lain.
+
+## 4b. Project — Research Team Admin (`content/projects.ts`, slug `research-team-admin`)
+
+- [ ] `title` — isi judul penelitiannya (masih `"TODO: isi judul penelitian"`).
+- [ ] `period` — isi periode pengerjaan (masih `"TODO: isi periode pengerjaan"`).
+- [ ] (Opsional) `photos` — belum ada. Tambahkan kalau ada foto tim/dokumentasi kegiatan yang boleh dipublish.
+
 ## 5. Deployment
 
 - [ ] Set environment variable `NEXT_PUBLIC_SITE_URL` ke domain final (Vercel atau custom domain) — dipakai untuk `metadataBase`, Open Graph, dan `sitemap.xml`/`robots.txt`. Default saat ini: `https://sharla-devrina.vercel.app` (lihat `lib/site.ts`).
